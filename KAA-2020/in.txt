@@ -1,0 +1,42 @@
+import <math.txt>
+
+int function multiply(int x, int y)
+{
+return x * y;
+};
+
+uint function lengthSum(string a, string b)
+{
+int k = strlen(a) + strlen(b);
+return k;
+};
+
+bool function isNmoreSUM(int a, int b, int c)
+{
+return (a < b+c);
+};
+
+main
+{
+bool tf = false; bool tf1 = true;
+uint z;
+int y = 5;  int x = 2;  int p = 0;
+
+bool result = isNmoreSUM(y,x,p);
+p =(uint) multiply(x, y);
+
+char symbol = 'a';
+string str = "Hello";
+for (int l = 0; l < y; l = l + 1;)
+{
+x = x + 2;
+out "X equal" + x;
+}
+string sa;
+sa = "1234567890";
+z = lengthSum(str,sa);
+out sa;
+out z;
+out str;
+return 0;
+};
