@@ -16,3 +16,4 @@
 #include "MFST.h"
 #include "FST.h"
 #include "GRB.h"
+#include "SemanticAnalys.h"

@@ -29,8 +29,8 @@
 #define	LEX_RIGHTBRACE	'}'			// лексема для }
 #define	LEX_LEFTSB		'['			// лексема для [
 #define	LEX_RIGHTSB		']'			// лексема для ]
-#define	LEX_LEFTHESIS	'('			// лексема для (
-#define	LEX_RIGHTHESIS	')'			// лексема для )
+#define	LEX_LEFTTHESIS	'('			// лексема для (
+#define	LEX_RIGHTTHESIS	')'			// лексема для )
 #define	LEX_PLUS		'v'			// лексема для +
 #define	LEX_MINUS		'v'			// лексема для -
 #define	LEX_STAR		'v'			// лексема для *

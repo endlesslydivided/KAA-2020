@@ -151,6 +151,7 @@
     <ClCompile Include="MFST.cpp" />
     <ClCompile Include="Parm.cpp" />
     <ClCompile Include="PN.cpp" />
+    <ClCompile Include="SemanticAnalys.cpp" />
     <ClCompile Include="token-division.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +166,7 @@
     <ClInclude Include="MFST.h" />
     <ClInclude Include="Parm.h" />
     <ClInclude Include="PN.h" />
+    <ClInclude Include="SemanticAnalys.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="tokens-division.h" />
   </ItemGroup>

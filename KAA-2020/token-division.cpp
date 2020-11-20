@@ -124,7 +124,8 @@ void token_divivison(const In::IN& source, LT::LexTable& lexTable, IT::IdTable& 
 	bool main_flag = false;
 	for (int iter = 0; iter < lexTable.size; iter++)
 	{
-		if (strcmp(idTable.GetEntry(iter).id,"main") == 0)
+		if(lexTable.GetEntry(iter).idxTI != -1)
+		if (strcmp(idTable.table[lexTable.GetEntry(iter).idxTI].id,"main") == 0)
 		{
 			main_flag = true;
 			break;
@@ -132,6 +133,24 @@ void token_divivison(const In::IN& source, LT::LexTable& lexTable, IT::IdTable& 
 	}
 	if (!main_flag)
 		throw ERROR_THROW_IN(131, -1, -1);
+	for (int iter = 0; iter < lexTable.size; iter++)
+	{
+		if (idTable.table[lexTable.GetEntry(iter).idxTI].value.operation == '/')
+		{
+			if (lexTable.GetEntry(iter).idxTI != -1)
+			if (idTable.table[lexTable.GetEntry(iter).idxTI].value.vint == 0 &&(idTable.table[lexTable.GetEntry(iter).idxTI].iddatatype == IT::IDDATATYPE::UINT || 
+				idTable.table[lexTable.GetEntry(iter).idxTI].iddatatype == IT::IDDATATYPE::INT)&&
+				(idTable.table[lexTable.GetEntry(iter).idxTI].iddatatype == IT::IDTYPE::L ||
+					idTable.table[lexTable.GetEntry(iter).idxTI].iddatatype == IT::IDTYPE::P ||
+					idTable.table[lexTable.GetEntry(iter).idxTI].iddatatype == IT::IDTYPE::V ||
+					idTable.table[lexTable.GetEntry(iter).idxTI].iddatatype == IT::IDTYPE::VF
+					))
+			{
+				throw ERROR_THROW_IN(145, lexTable.GetEntry(iter).sn, -1);
+			}
+		}
+	}
+	
 }
 
 bool token_analize(char* token, const int str_number, LT::LexTable& lexTable, IT::IdTable& idTable)
@@ -158,15 +177,33 @@ bool token_analize(char* token, const int str_number, LT::LexTable& lexTable, IT
 		return true;
 	}
 
-	case LEX_LEFTHESIS:
+	case LEX_LEFTTHESIS:
 	{
-		Add(lexTable, { LEX_LEFTHESIS,str_number,LT_TI_NULLXDX });
+		Add(lexTable, { LEX_LEFTTHESIS,str_number,LT_TI_NULLXDX });
 		return true;
 	}
 
-	case LEX_RIGHTHESIS:
+	case LEX_RIGHTTHESIS:
+	{	
+		if (lexTable.table[lexTable.size - 1].lexema == 't')
 	{
-		Add(lexTable, { LEX_RIGHTHESIS,str_number,LT_TI_NULLXDX });
+		switch (flag_type_variable.type)
+		{
+		case Flag_type_variable::UINT: 
+		{
+			idTable.Add({ "\0", "\0", IT::IDDATATYPE::DEF, IT::IDTYPE::D, 'u' });
+			lexTable.table[lexTable.size - 1].idxTI = idTable.size - 1;
+			break; 
+		};
+		case Flag_type_variable::INT: 
+		{
+			idTable.Add({ "\0", "\0", IT::IDDATATYPE::DEF, IT::IDTYPE::D, 'i' }); 
+			lexTable.table[lexTable.size - 1].idxTI = idTable.size - 1;
+			break; 
+		};
+		}
+	}
+		Add(lexTable, { LEX_RIGHTTHESIS,str_number,LT_TI_NULLXDX });
 		return true;
 	}
 
@@ -195,6 +232,10 @@ bool token_analize(char* token, const int str_number, LT::LexTable& lexTable, IT
 
 	case '-':
 	{
+		if (idTable.table[idTable.size -1].iddatatype != IT::UINT && idTable.table[idTable.size - 1].iddatatype != IT::INT)
+		{
+			throw ERROR_THROW_IN(143, str_number, -1);
+		}
 		idTable.Add({ "\0", "\0", IT::IDDATATYPE::DEF, IT::IDTYPE::D, '-' });
 		Add(lexTable, { LEX_MINUS,str_number,idTable.size - 1 });
 		return true;
@@ -202,6 +243,10 @@ bool token_analize(char* token, const int str_number, LT::LexTable& lexTable, IT
 
 	case '*':
 	{
+		if (idTable.table[idTable.size - 1].iddatatype != IT::UINT && idTable.table[idTable.size - 1].iddatatype != IT::INT)
+		{
+			throw ERROR_THROW_IN(143, str_number, -1);
+		}
 		idTable.Add({ "\0", "\0", IT::IDDATATYPE::DEF, IT::IDTYPE::D, '*' });
 		Add(lexTable, { LEX_STAR,str_number,idTable.size - 1 });
 		return true;
@@ -209,6 +254,10 @@ bool token_analize(char* token, const int str_number, LT::LexTable& lexTable, IT
 
 	case '/':
 	{
+		if (idTable.table[idTable.size - 1].iddatatype != IT::UINT && idTable.table[idTable.size - 1].iddatatype != IT::INT)
+		{
+			throw ERROR_THROW_IN(143, str_number, -1);
+		}
 		idTable.Add({ "\0", "\0", IT::IDDATATYPE::DEF, IT::IDTYPE::D, '/' });
 		Add(lexTable, { LEX_DIRSLASH,str_number,idTable.size - 1 });
 		return true;
@@ -536,7 +585,6 @@ bool token_analize(char* token, const int str_number, LT::LexTable& lexTable, IT
 			delete _main;
 			_main = NULL;
 			flag_type_variable.LT_posititon = lexTable.size - 1;
-			flag_type_variable.type = Flag_type_variable::UINT;
 			return true;
 		}
 		else
@@ -669,9 +717,9 @@ bool func_var(char* token, const int str_number, LT::LexTable& lexTable, IT::IdT
 				if (entry.lexema == LEX_LEFTBRACE)
 					LeftBrace = true;
 				bool type_check = (idTable.GetEntry(entry.idxTI).idtype == IT::IDTYPE::F);
-				if ((lexTable.GetEntry(i).lexema == LEX_ID || lexTable.GetEntry(i).lexema == LEX_MAIN) && type_check)
+				if (lexTable.GetEntry(i).lexema == LEX_ID&& type_check)
 				{
-					if ((lexTable.GetEntry(i - 1).lexema == LEX_FUNCTION && lexTable.GetEntry(i - 2).lexema == 't') || ((lexTable.GetEntry(i).lexema == LEX_MAIN)))
+					if (lexTable.GetEntry(i - 1).lexema == LEX_FUNCTION && lexTable.GetEntry(i - 2).lexema == 't')
 					{
 						if (LeftBrace == true) break;
 						if (idTable.IsId(token, idTable.GetEntry(lexTable.GetEntry(i).idxTI).id,i) == -1)
@@ -738,7 +786,8 @@ bool func_var(char* token, const int str_number, LT::LexTable& lexTable, IT::IdT
 					continue;
 				}
 				if ((LeftBrace && !RightBrace &&
-					(((LEXEMA == LEX_ID || LEXEMA == LEX_MAIN) && idTable.GetEntry(lexTable.GetEntry(i).idxTI).idtype == IT::IDTYPE::F)))
+					((LEXEMA == LEX_ID  && idTable.GetEntry(lexTable.GetEntry(i).idxTI).idtype == IT::IDTYPE::F && lexTable.table[i - 1].lexema == 'f'))||
+					((LEXEMA == LEX_ID && strcmp(idTable.GetEntry(lexTable.GetEntry(i).idxTI).id,"main") == 0)))
 					|| (LEXEMA == LEX_FOR && (!LeftBrace && !RightBrace))
 					)
 				{
@@ -750,7 +799,7 @@ bool func_var(char* token, const int str_number, LT::LexTable& lexTable, IT::IdT
 							for (int l = i; l >= 0; l--)
 							{
 								char LEXEMA = lexTable.GetEntry(l).lexema;
-								if ((LEXEMA == LEX_ID || LEXEMA == LEX_MAIN) && idTable.GetEntry(lexTable.GetEntry(l).idxTI).idtype == IT::IDTYPE::F)
+								if (LEXEMA == LEX_ID  && idTable.GetEntry(lexTable.GetEntry(l).idxTI).idtype == IT::IDTYPE::F)
 								{
 									idTable.Add({ idTable.GetForName(idTable.GetEntry(lexTable.GetEntry(l).idxTI).id,flag_type_variable),token, (IT::IDDATATYPE)flag_type_variable.type, IT::IDTYPE::VF });
 									idTable.for_count++;
@@ -763,23 +812,23 @@ bool func_var(char* token, const int str_number, LT::LexTable& lexTable, IT::IdT
 						{
 							if (flag_type_variable.type == Flag_type_variable::INT)
 							{
-								idTable.Add({ idTable.GetEntry(lexTable.GetEntry(i).idxTI).id,token, IT::IDDATATYPE::INT, IT::IDTYPE::V });
+								idTable.Add({ idTable.GetEntry(lexTable.GetEntry(i).idxTI).id,lexTable.GetEntry(i).idxTI,token, IT::IDDATATYPE::INT, IT::IDTYPE::V });
 							}
 							if (flag_type_variable.type == Flag_type_variable::STR)
 							{
-								idTable.Add({ idTable.GetEntry(lexTable.GetEntry(i).idxTI).id,token , IT::IDDATATYPE::STR, IT::IDTYPE::V });
+								idTable.Add({ idTable.GetEntry(lexTable.GetEntry(i).idxTI).id,lexTable.GetEntry(i).idxTI,token , IT::IDDATATYPE::STR, IT::IDTYPE::V });
 							}
 							if (flag_type_variable.type == Flag_type_variable::CHAR)
 							{
-								idTable.Add({ idTable.GetEntry(lexTable.GetEntry(i).idxTI).id,token, IT::IDDATATYPE::CHAR, IT::IDTYPE::V });
+								idTable.Add({ idTable.GetEntry(lexTable.GetEntry(i).idxTI).id,lexTable.GetEntry(i).idxTI,token, IT::IDDATATYPE::CHAR, IT::IDTYPE::V });
 							}
 							if (flag_type_variable.type == Flag_type_variable::BOOL)
 							{
-								idTable.Add({ idTable.GetEntry(lexTable.GetEntry(i).idxTI).id,token , IT::IDDATATYPE::BOOL, IT::IDTYPE::V });
+								idTable.Add({ idTable.GetEntry(lexTable.GetEntry(i).idxTI).id,lexTable.GetEntry(i).idxTI,token , IT::IDDATATYPE::BOOL, IT::IDTYPE::V });
 							}
 							if (flag_type_variable.type == Flag_type_variable::UINT)
 							{
-								idTable.Add({ idTable.GetEntry(lexTable.GetEntry(i).idxTI).id,token , IT::IDDATATYPE::UINT, IT::IDTYPE::V });
+								idTable.Add({ idTable.GetEntry(lexTable.GetEntry(i).idxTI).id,lexTable.GetEntry(i).idxTI,token , IT::IDDATATYPE::UINT, IT::IDTYPE::V });
 							}
 							
 						}
@@ -804,9 +853,11 @@ bool func_var(char* token, const int str_number, LT::LexTable& lexTable, IT::IdT
 		{
 			bool LeftBrace = false; 
 			bool RightBrace = false; 
+			bool LeftThesis = false;
+			bool RightThesis = false;
 			for (int i = lexTable.size - 1; i >= 0; i--)
 			{
-				char LEXEMA = lexTable.GetEntry(i).lexema;
+				char LEXEMA = lexTable.GetEntry(i).lexema;          
 				if (LEXEMA == LEX_LEFTBRACE)
 				{
 					LeftBrace = true;
@@ -815,29 +866,42 @@ bool func_var(char* token, const int str_number, LT::LexTable& lexTable, IT::IdT
 				{
 					RightBrace = true;
 				}
-				if (LEXEMA == LEX_FOR && LeftBrace && RightBrace)
+				if (LEXEMA == LEX_LEFTTHESIS)
+				{
+					LeftThesis = true;
+				}
+				if (LEXEMA == LEX_RIGHTTHESIS)
+				{
+					RightThesis = true;
+				}
+				if (LEXEMA == LEX_FOR && LeftBrace && RightBrace && LeftThesis && RightThesis)
 				{
 					LeftBrace = false;
 					RightBrace = false;
+					LeftThesis = false;
+					RightThesis = false;
 					continue;
 				}
 				if ((LeftBrace && !RightBrace &&
-					(((LEXEMA == LEX_ID || LEXEMA == LEX_MAIN) && idTable.GetEntry(lexTable.GetEntry(i).idxTI).idtype == IT::IDTYPE::F)))
-					|| (LEXEMA == LEX_FOR && (!LeftBrace && !RightBrace))
+					((LEXEMA == LEX_ID  && idTable.GetEntry(lexTable.GetEntry(i).idxTI).idtype == IT::IDTYPE::F)))
+					|| (LEXEMA == LEX_FOR && (LeftBrace && !RightBrace) || (LEXEMA == LEX_FOR && (LeftThesis && !RightThesis)))
 					)
 				{
 					int temp = -2;
-					for (int l = lexTable.size - 1; l >= 0; l--)
-					{
-						if (idTable.GetEntry(lexTable.GetEntry(l).idxTI).idtype == IT::IDTYPE::VF )
-						{
-							temp = idTable.IsId(token);
-							break;
-						}
-					}
+					IT::Entry id_f;
+					id_f = idTable.GetEntry(lexTable.GetEntry(i).idxTI);
+							if (LEXEMA == LEX_FOR)
+							{
+								temp = idTable.IsId(token);
+							}
+							else if(idTable.GetEntry(lexTable.GetEntry(i).idxTI).idtype == IT::IDTYPE::F)
+							{
+								temp = idTable.IsId(token, id_f, lexTable.GetEntry(i).idxTI);
+							}
+
 					if (temp != -1)
 					{
-						Add(lexTable, { LEX_ID,str_number,temp });
+ 						Add(lexTable, { LEX_ID,str_number,temp });
 						break;
 					}
 					else

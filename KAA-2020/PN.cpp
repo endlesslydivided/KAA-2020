@@ -104,9 +104,17 @@ namespace PN
 				i++;
 				continue;
 			}
-
+			if (temp.lexema == LEX_EQUALITY_SIGN ||
+				temp.lexema == LEX_LESS_SIGN ||
+				temp.lexema == LEX_MORE_SIGN ||
+				temp.lexema == LEX_NOTEQUALITY_SIGN)
+			{
+				flag = false; break;
+			}
 			switch (operators->Last_element(idTable))
 			{
+
+			
 			case BEGIN_SYMBOL:
 			{
 				if (temp.idxTI != -1)
@@ -123,14 +131,14 @@ namespace PN
 				}
 				else
 				{
-					if (temp.lexema == LEX_LEFTHESIS)
+					if (temp.lexema == LEX_LEFTTHESIS)
 					{
 						operators->push(temp);
 						i++;
 						break;
 					}
 				}
-				if (temp.lexema == LEX_RIGHTHESIS) { flag = false; }
+				if (temp.lexema == LEX_RIGHTTHESIS) { flag = false; }
 				if (temp.lexema == LEX_SEMICOLON) { is_complete = true; flag = false; }
 				break;
 			}
@@ -148,7 +156,7 @@ namespace PN
 				}
 				else
 				{
-					if (temp.lexema == LEX_LEFTHESIS ||
+					if (temp.lexema == LEX_LEFTTHESIS ||
 						temp.lexema == LEX_SEMICOLON)
 					{
 						literals->push(*operators->pop());
@@ -168,7 +176,7 @@ namespace PN
 				}
 				else
 				{
-					if (temp.lexema == LEX_LEFTHESIS)
+					if (temp.lexema == LEX_LEFTTHESIS)
 					{
 						operators->push(temp);
 						i++;
@@ -193,21 +201,21 @@ namespace PN
 				}
 				else
 				{
-					if (temp.lexema == LEX_RIGHTHESIS ||
+					if (temp.lexema == LEX_RIGHTTHESIS ||
 						temp.lexema == LEX_SEMICOLON)
 					{
 						literals->push(*operators->pop());
 						break;
 					}
 				}
-				if (temp.lexema == LEX_LEFTHESIS)
+				if (temp.lexema == LEX_LEFTTHESIS)
 				{
 					operators->push(temp);
 					i++;
 					break;
 				}
 			}
-			case LEX_LEFTHESIS:
+			case LEX_LEFTTHESIS:
 			{
 				if (temp.lexema == LEX_SEMICOLON) flag = false;
 
@@ -225,14 +233,14 @@ namespace PN
 				}
 				else
 				{
-					if (temp.lexema == LEX_LEFTHESIS)
+					if (temp.lexema == LEX_LEFTTHESIS)
 					{
 						operators->push(temp);
 						i++;
 						break;
 					}
 				}
-				if (temp.lexema == LEX_RIGHTHESIS)
+				if (temp.lexema == LEX_RIGHTTHESIS)
 				{
 					operators->pop();
 					i++;

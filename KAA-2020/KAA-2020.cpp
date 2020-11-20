@@ -22,18 +22,25 @@ int wmain(int argc, wchar_t* argv[])
 		token_divivison(in, lextable, idTable);
 
 		lextable.PrintLexTable(parm.in, L".lex_ver_0.txt");
-		MFST_TRACE_START										//отладка
-			MFST::Mfst mfst(lextable, GRB::getGreibach());		//автомат
-		mfst.start();											// старт синтаксического анализа
+		idTable.PrintIdTable(parm.in);
+		
+	
+		//MFST_TRACE_START										//отладка
+		//	MFST::Mfst mfst(lextable, GRB::getGreibach());		//автомат
+		//mfst.start();											// старт синтаксического анализа
 
-		mfst.savededucation();									//сохранить правила вывода
+		//mfst.savededucation();									//сохранить правила вывода
 
-		mfst.printrules();										//отладка: вывести правила вывода	
+		//mfst.printrules();										//отладка: вывести правила вывода	
 
 
 		for (int iter = 0, lt_position; iter < lextable.size; iter++)
 		{
-			if (lextable.table[iter - 1].lexema == LEX_EQUAL_SIGN)
+			if (lextable.table[iter - 1].lexema == LEX_EQUAL_SIGN || 
+				lextable.table[iter - 1].lexema == LEX_MORE_SIGN || 
+				lextable.table[iter - 1].lexema == LEX_LESS_SIGN||
+				lextable.table[iter - 1].lexema == LEX_RETURN  ||
+				(lextable.table[iter - 3].lexema == LEX_LEFTTHESIS && lextable.table[iter - 2].lexema == LEX_INTEGER && lextable.table[iter - 1].lexema == LEX_RIGHTTHESIS))
 			{
 				if (PN::PolishNotation(iter, lextable, idTable))
 				{
@@ -44,9 +51,11 @@ int wmain(int argc, wchar_t* argv[])
 			}
 		}
 
+		SemanticAnalyze(lextable, idTable); //запуск семантического анализа
+
 		lextable.PrintLexTable(parm.in, L".lex_ver_PN.txt");
 		lextable.PrintLexTableControle(parm.in, L".lex_ver_Control.txt", idTable);
-		idTable.PrintIdTable(parm.in);
+		
 
 		Delete(lextable);
 		Delete(idTable);

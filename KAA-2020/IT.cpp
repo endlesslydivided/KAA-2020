@@ -188,24 +188,24 @@ namespace IT
 			{
 			case IDDATATYPE::INT:
 			{
-				this->table[this->size].value.vint = TI_INT_DEFAULT;
+				this->table[this->size].value.vint = TI_INT_DEFAULT; break;
 			}
 			case IDDATATYPE::STR:
 			{
 				this->table[this->size].value.vstr.str[0] = TI_STR_DEFAULT;
-				this->table[this->size].value.vstr.len = 0;
+				this->table[this->size].value.vstr.len = 0; break;
 			}
 			case IDDATATYPE::CHAR:
 			{
-				this->table[this->size].value.vchar = '\0';
+				this->table[this->size].value.vchar = '\0'; break;
 			}
 			case IDDATATYPE::BOOL:
 			{
-				this->table[this->size].value.vbool = false;
+				this->table[this->size].value.vbool = false; break;
 			}
 			case IDDATATYPE::UINT:
 			{
-				this->table[this->size].value.vuint = 0;
+				this->table[this->size].value.vuint = 0; break;
 			}
 			}
 			this->size++;
@@ -225,6 +225,18 @@ namespace IT
 		{
 			if ((strcmp(this->table[iter].id, id) == 0))
 			return iter;
+		}
+		return TI_NULLIDX;
+	}
+	int IdTable::IsId(const char id[ID_MAXSIZE], Entry ide, int parent_function_number)
+	{
+		for (int i = 0; i < this->size; i++)
+		{
+			if (strcmp(this->table[i].id, id) == 0 &&
+				strcmp(this->table[i].parent_function, ide.id) == 0 &&
+				parent_function_number == this->table[i].parent_function_num
+				)
+				return i;
 		}
 		return TI_NULLIDX;
 	}
@@ -330,27 +342,27 @@ namespace IT
 					{
 					case 1:
 					{
-						*(idStream) << '|' << std::setw(37 - strlen(this->table[i].id)) << this->table[i].id << '|' << std::setw(42) << "INT " << '|' << std::setw(68) << this->table[i].parmQuantity << '|' << std::endl;
+						*(idStream) << '|' << i << std::setw(37 - strlen(this->table[i].id)) << this->table[i].id << '|' << std::setw(42) << "INT " << '|' << std::setw(68) << this->table[i].parmQuantity << '|' << std::endl;
 						break;
 					}
 					case 2:
 					{
-						*(idStream) << '|' << std::setw(37 - strlen(this->table[i].id)) << this->table[i].id << '|' << std::setw(42) << "STR " << '|' << std::setw(68) << this->table[i].parmQuantity << '|' << std::endl;
+						*(idStream) << '|' << i << std::setw(37 - strlen(this->table[i].id)) << this->table[i].id << '|' << std::setw(42) << "STR " << '|' << std::setw(68) << this->table[i].parmQuantity << '|' << std::endl;
 						break;
 					}
 					case 3:
 					{
-						*(idStream) << '|' << std::setw(37 - strlen(this->table[i].id)) << this->table[i].id << '|' << std::setw(42) << "UINT " << '|' << std::setw(68) << this->table[i].parmQuantity << '|' << std::endl;
+						*(idStream) << '|' << i << std::setw(37 - strlen(this->table[i].id)) << this->table[i].id << '|' << std::setw(42) << "UINT " << '|' << std::setw(68) << this->table[i].parmQuantity << '|' << std::endl;
 						break;
 					}
 					case 4:
 					{
-						*(idStream) << '|' << std::setw(37 - strlen(this->table[i].id)) << this->table[i].id << '|' << std::setw(42) << "CHAR " << '|' << std::setw(68) << this->table[i].parmQuantity << '|' << std::endl;
+						*(idStream) << '|' << i << std::setw(37 - strlen(this->table[i].id)) << this->table[i].id << '|' << std::setw(42) << "CHAR " << '|' << std::setw(68) << this->table[i].parmQuantity << '|' << std::endl;
 						break;
 					}
 					case 5:
 					{
-						*(idStream) << '|' << std::setw(37 - strlen(this->table[i].id)) << this->table[i].id << '|' << std::setw(42) << "BOOL " << '|' << std::setw(68) << this->table[i].parmQuantity << '|' << std::endl;
+						*(idStream) << '|' << i << std::setw(37 - strlen(this->table[i].id)) << this->table[i].id << '|' << std::setw(42) << "BOOL " << '|' << std::setw(68) << this->table[i].parmQuantity << '|' << std::endl;
 						break;
 					}
 					}

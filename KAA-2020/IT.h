@@ -26,8 +26,8 @@ namespace IT								// таблица идентификаторов
 		IDTYPE idtype;									// тип идентификатора
 		union
 		{
-			int vint;
-			char operation = '\0';
+			int vint;							
+			char operation = '\0';					
 			char vchar;
 			bool vbool;
 			unsigned int vuint;
@@ -61,8 +61,9 @@ namespace IT								// таблица идентификаторов
 		void Add(								// добавиь строку в таблицу идентификаторов 
 			Entry entry										// строка таблицы идентификторов
 		);
-		int IsId(const char id[ID_MAXSIZE], const char parent_function[ID_MAXSIZE + 5], int parent_function_number);
+		int IsId(const char id[ID_MAXSIZE], Entry ide, int parent_function_number);
 		int IsId(const char id[ID_MAXSIZE]);
+		int IsId(const char id[ID_MAXSIZE], const char parent_function[ID_MAXSIZE + 5], int parent_function_number);
 		void PrintIdTable(const wchar_t* in);
 		IdTable();
 		char* GetLexemaName();

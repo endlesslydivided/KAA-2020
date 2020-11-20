@@ -2,12 +2,12 @@ import <math.txt>
 
 int function multiply(int x, int y)
 {
-return x * y;
+return (x * y);
 };
 
-uint function lengthSum(string a, string b)
+int function lengthSum(string a, string b)
 {
-int k = strlen(a) + strlen(b);
+int k =strlen(a) + strlen(b);
 return k;
 };
 
@@ -20,20 +20,23 @@ main
 {
 bool tf = false; bool tf1 = true;
 uint z;
-int y = 5;  int x = 2;  int p = 0;
+int y = 5;  int x = 2;  uint p = 0;
 
 bool result = isNmoreSUM(y,x,p);
-p =(uint) multiply(x, y);
+p =multiply(x, y);
 
-char symbol = 'a';
+char symbol = '4';
 string str = "Hello";
+y =5+4;
 for (int l = 0; l < y; l = l + 1;)
 {
 x = x + 2;
-out "X equal" + x;
+out "X equal";
+out x;
 }
 string sa;
 sa = "1234567890";
+sa = sa + str;
 z = lengthSum(str,sa);
 out sa;
 out z;
