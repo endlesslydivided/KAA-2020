@@ -1,3 +1,4 @@
+#pragma once
 #include "stdafx.h"	
 #include "Log.h"	
 #include <time.h>
@@ -50,7 +51,7 @@ namespace Log
 	}
 	void WriteIn(LOG log, In::IN in)
 	{
-		*log.stream << "\n----------- ÈÑÕÎÄÍÛÅ ÄÀÍÍÛÅ -----------\n";
+		*log.stream << "\n----------- ÈCÕÎÄÍÛÅ ÄÀÍÍÛÅ -----------\n";
 		int line = 1;
 		*log.stream << line++ << '\t';
 		for (int iter = 0; iter < in.size; iter++)
@@ -83,13 +84,13 @@ namespace Log
 		{
 			*log.stream << "\nÎøèáêà " << error.id
 				<< ": " << error.message
-				<< "\nÑòðîêà " << error.inext.line
+				<< "\nCòðîêà " << error.inext.line
 				<< " ïîçèöèÿ " << error.inext.col << endl;
 			Close(log);
 		}
 		cout << "\nÎøèáêà " << error.id
 			<< ": " << error.message
-			<< "\nÑòðîêà " << error.inext.line
+			<< "\nCòðîêà " << error.inext.line
 			<< " ïîçèöèÿ " << error.inext.col << endl;
 	}
 	void Close(LOG log)

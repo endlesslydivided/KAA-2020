@@ -1,3 +1,4 @@
+#pragma once
 #include "stdafx.h"
 #include "In.h"
 #include "Error.h"
@@ -37,7 +38,7 @@ namespace In
 				text[in_ex.size] = STRING_END_ZERO;
 				break;
 			}
-			if (in_ex.code[uc] == in_ex.T || in_ex.code[uc] == in_ex.D || in_ex.code[uc] == in_ex.A)
+			if (in_ex.code[uc] == in_ex.T || in_ex.code[uc] == in_ex.D || in_ex.code[uc] == in_ex.A || in_ex.code[uc] == in_ex.N)
 			{
 
 				text[in_ex.size] = uc;
@@ -75,15 +76,17 @@ namespace In
 		int str_number = 1;
 		int str_position = 1;
 		char* file_name = new char[MAX_FILE_NAME_SIZE];
-
+		unsigned char* text = new unsigned char[IN_MAX_LEN_TEXT];
+		bool ifimpfile = false;
 		In::IN in_ex;
 		in_ex.size = 0;
 		in_ex.lines = 0;
 		in_ex.ignor = 0;
+		in_ex.text = text;
 
 		for (int i = 0, j = 0; i < source.size; i++)
 		{
-			
+			ifimpfile = false;
 			if (source.text[i] == 'i')
 			{
 				for (int l = 0; l < IMPORT_LEX_SIZE; l++)
@@ -96,6 +99,8 @@ namespace In
 				bool import_found = false;
 				if (import_found = FST::execute(*_import))
 				{
+					delete _import;
+					ifimpfile = true;
 					int delete_import = i - 1;
 					for (int g = 0; g < IMPORT_LEX_SIZE; g++)
 					{
@@ -118,13 +123,18 @@ namespace In
 					}
 					file_name[k] = '\0';
 				}
+				else
+				{
+					delete _import;
+					continue;
+				}
 				if (temp[0] == '\"')
 				{
 					in_ex.text = check_text(file_name, in_ex);
 				}
 				if (temp[0] == '<')
 				{
-					char file_patch[255] = { "Standart_library\\" };
+					char file_patch[255] = { "Library\\" };
 					strcat_s(file_patch, sizeof(file_patch), file_name);
 					in_ex.text = check_text(file_patch, in_ex);
 				}
@@ -141,12 +151,12 @@ namespace In
 			temp[0] = '\0';
 			j = 0;
 		}
-		for (int i = 0; i < source.size; i++)
-		{
-			
-			in_ex.text[in_ex.size] = source.text[i];
-			in_ex.size++;
-		}
+
+			for (int i = 0; i < source.size; i++)
+			{
+				in_ex.text[in_ex.size] = source.text[i];
+				in_ex.size++;
+			}
 		in_ex.ignor += source.ignor;
 		in_ex.lines += source.lines;
 		return in_ex;
@@ -172,7 +182,7 @@ namespace In
 				text[in_ex.size] = STRING_END_ZERO;
 				break;
 			}
-			if (in_ex.code[uc] == in_ex.T || in_ex.code[uc] == in_ex.D || in_ex.code[uc] == in_ex.A)
+			if (in_ex.code[uc] == in_ex.T || in_ex.code[uc] == in_ex.D || in_ex.code[uc] == in_ex.A || in_ex.code[uc] == in_ex.N)
 			{
 
 				text[in_ex.size] = uc;

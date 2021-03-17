@@ -1,3 +1,4 @@
+ï»¿#pragma once
 #include "stdafx.h"
 #include <iomanip>
 #include <iostream>
@@ -56,7 +57,7 @@ namespace MFST
 		nrulechain = -1;
 	}
 #pragma endregion
-	Mfst::RC_STEP Mfst::step()
+	Mfst::RC_STEP Mfst::step(Parm::PARM parm, Log::LOG log)
 	{
 		RC_STEP rc = SURPRISE;
 		if (lenta_position < lenta_size)
@@ -70,13 +71,13 @@ namespace MFST
 					if ((nrulechain = rule.getNextChain(lenta[lenta_position], chain, nrulechain + 1)) >= 0)
 					{
 						MFST_TRACE1
-							savestate(); st.pop(); push_chain(chain); rc = NS_OK;
+							savestate(parm, log); st.pop(); push_chain(chain); rc = NS_OK;
 						MFST_TRACE2
 					}
 					else
 					{
 						MFST_TRACE4("TNS_NORULECHAIN/NS_NORULE")
-							savediagnosis(NS_NORULECHAIN); rc = resetstate() ? NS_NORULECHAIN : NS_NORULE;
+							savediagnosis(NS_NORULECHAIN); rc = resetstate(parm, log) ? NS_NORULECHAIN : NS_NORULE;
 					};
 				}
 				else rc = NS_ERROR;
@@ -86,7 +87,7 @@ namespace MFST
 				lenta_position++; st.pop(); nrulechain = -1; rc = TS_OK;
 				MFST_TRACE3
 			}
-			else { MFST_TRACE4(TS_NOK / NS_NORULECHAIN) rc = resetstate() ? TS_NOK : NS_NORULECHAIN; };
+			else { MFST_TRACE4(TS_NOK / NS_NORULECHAIN) rc = resetstate(parm,log) ? TS_NOK : NS_NORULECHAIN; };
 		}
 		else 
 		{ 
@@ -102,14 +103,14 @@ namespace MFST
 		return true;
 	};
 	
-	bool Mfst::savestate()
+	bool Mfst::savestate(Parm::PARM parm, Log::LOG log)
 	{
 		storestate.push(MfstState(lenta_position, st, nrule, nrulechain));
 		MFST_TRACE6("SAVESTATE:", storestate.size());
 		return true;
 	}; 
 
-	bool Mfst::resetstate()
+	bool Mfst::resetstate(Parm::PARM parm, Log::LOG log)
 	{
 		bool rc = false;
 		MfstState state;
@@ -146,23 +147,23 @@ namespace MFST
 		return rc;
 	};
 
-	bool Mfst::start()
+	bool Mfst::start(Parm::PARM parm,Log::LOG log)
 	{
 		bool rc = false;
 		RC_STEP rc_step = SURPRISE;
 		char buf[MFST_DIAGN_MAXSIZE]{};
-		rc_step = step();
+		rc_step = step(parm, log);
 		while (rc_step == NS_OK || rc_step == NS_NORULECHAIN || rc_step == TS_OK || rc_step == TS_NOK)
-			rc_step = step();
+			rc_step = step(parm, log);
 
 		switch (rc_step)
 		{
 		case LENTA_END:
 		{
 			MFST_TRACE4("------>LENTA_END")
-				std::cout << "------------------------------------------------------------------------------------------   ------" << std::endl;
-			sprintf_s(buf, MFST_DIAGN_MAXSIZE, "%d: âñåãî ñòðîê %d, ñèíòàêñè÷åñêèé àíàëèç âûïîëíåí áåç îøèáîê", 0, lex.table[lex.size - 1].sn);
-			std::cout << std::setw(4) << std::left << 0 << "âñåãî ñòðîê " << lex.table[lex.size - 1].sn << ", ñèíòàêñè÷åñêèé àíàëèç âûïîëíåí áåç îøèáîê" << std::endl;
+			sprintf_s(buf, MFST_DIAGN_MAXSIZE, "Ð²ÑÐµÐ³Ð¾ ÑÑ‚Ñ€Ð¾Ðº %d, ÑÐ¸Ð½Ñ‚Ð°ÐºÑÐ¸Ñ‡ÐµÑÐºÐ¸Ð¹ Ð°Ð½Ð°Ð»Ð¸Ð· Ð²Ñ‹Ð¿Ð¾Ð»Ð½ÐµÐ½ Ð±ÐµÐ· Ð¾ÑˆÐ¸Ð±Ð¾Ðº", lex.table[lex.size - 1].sn);
+			std::cout << std::setw(4) << std::left <<"Ð’ÑÐµÐ³Ð¾ ÑÑ‚Ñ€Ð¾Ðº: " << lex.table[lex.size - 1].sn << ", ÑÐ¸Ð½Ñ‚Ð°ÐºÑÐ¸Ñ‡ÐµÑÐºÐ¸Ð¹ Ð°Ð½Ð°Ð»Ð¸Ð· Ð²Ñ‹Ð¿Ð¾Ð»Ð½ÐµÐ½ Ð±ÐµÐ· Ð¾ÑˆÐ¸Ð±Ð¾Ðº" << std::endl;
+			*log.stream << std::setw(4) << std::left << "Ð’ÑÐµÐ³Ð¾ ÑÑ‚Ñ€Ð¾Ðº: " << lex.table[lex.size - 1].sn << ", ÑÐ¸Ð½Ñ‚Ð°ÐºÑÐ¸Ñ‡ÐµÑÐºÐ¸Ð¹ Ð°Ð½Ð°Ð»Ð¸Ð· Ð²Ñ‹Ð¿Ð¾Ð»Ð½ÐµÐ½ Ð±ÐµÐ· Ð¾ÑˆÐ¸Ð±Ð¾Ðº" << std::endl;
 			rc = true;
 			break;
 		}
@@ -170,10 +171,11 @@ namespace MFST
 		case NS_NORULE:
 		{
 			MFST_TRACE4("------>NS_NORULE")
-				std::cout << "------------------------------------------------------------------------------------------   ------" << std::endl;
+				std::cout << "------------------------------------------------------------------------------------------------" << std::endl;
 			std::cout << getDiagnosis(0, buf) << std::endl;
 			std::cout << getDiagnosis(1, buf) << std::endl;
 			std::cout << getDiagnosis(2, buf) << std::endl;
+			*log.stream << getDiagnosis(0, buf) << std::endl << getDiagnosis(1, buf) << std::endl << getDiagnosis(2, buf) << std::endl;
 			break;
 		}
 
@@ -216,12 +218,12 @@ namespace MFST
 		{
 			errid = grebach.getRule(diagnosis[n].nrule).iderror;
 			Error::ERROR err = Error::geterror(errid);
-			sprintf_s(buf, MFST_DIAGN_MAXSIZE, "%d: ñòðîêà %d,	%s", err.id, lex.table[lpos].sn, err.message);
+			sprintf_s(buf, MFST_DIAGN_MAXSIZE, "%d: ÑÑ‚Ñ€Ð¾ÐºÐ° %d,	%s", err.id, lex.table[lpos].sn, err.message);
 			rc = buf;
 		}
 		return rc;
 	}
-	void Mfst::printrules()
+	void Mfst::printrules(Parm::PARM parm,Log::LOG log)
 	{
 		MfstState state;
 		GRB::Rule rule;

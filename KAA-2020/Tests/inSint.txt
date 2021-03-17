@@ -1,0 +1,11 @@
+main
+{
+int number = 0;
+int iter = 2;
+for(;iter > number;iter = iter - 1)
+{
+number = iter /2;
+out "I don't work";
+}
+return number;
+};

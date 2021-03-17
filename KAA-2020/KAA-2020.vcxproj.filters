@@ -51,10 +51,10 @@
     <ClCompile Include="token-division.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="CG.cpp">
+    <ClCompile Include="SemanticAnalys.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="SemanticAnalys.cpp">
+    <ClCompile Include="CodeGenerator.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -95,10 +95,10 @@
     <ClInclude Include="tokens-division.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="CG.h">
+    <ClInclude Include="SemanticAnalys.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="SemanticAnalys.h">
+    <ClInclude Include="CodeGenerator.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

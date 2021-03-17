@@ -1,0 +1,58 @@
+import <math.txt>
+
+int function factorial(int a)
+{
+int result = a;
+for ( int iter = 1; iter < a;iter = iter + 1;)
+{result = result * iter;}
+return result; 
+};
+
+main
+{
+int a = -6 ; 	uint b = 58 ; 	int l = 2 ;		bool c = true ; 	bool d = false ;
+string e = "|e Факториал 6 равен: ";  	string f = "|e Сумма переменных a и b равна: ";	string oneStr = "Строка 1 ";  string twoStr = "Строка 2"; 
+char g = 'g';
+string strSum = oneStr + " и " + twoStr;
+
+out"|h a="; out a;
+out"|e|h b(16)="; out b;
+out"|e|b b(2)="; out b;
+out"|e  c="; out c;
+out"|e |d d="; out d;
+out"|e Cумма строк oneStr и twoStr: |e |t "; 			out strSum;
+
+int fact = factorial(l);
+out e; out fact;
+
+b =(uint) a;
+out "|e b=3; |e b=(uint)a; |e b равно: "; 	out b;
+
+int length = strl(e); 						out "|f Длина строки e:"; out length;
+uint parm = 100; 		uint number = random(parm);		out "|fCлучайное число:"; out number;
+
+int result1 = a / 2 ; 			out "|f a/2 ="; 		out result1;
+int result2 = a * 2 + 2 - 10 ;		out "|f a * 2 + 2 - 10 ="; 	out result2;
+int result3 = result1 >> 4 ;		out "|f result1 >> 4 ="; 	out result3;
+int result4 = result2 << 2 ;		out "|f result2 << 2 ="; 	out result4;
+bool logic_1 = 5/2 == 2*3 ;			out "|f 5/2 (2)== 2*3(6):"; 			out logic_1;
+bool logic_2 = (95 / 5) << 2 != (4-5) *3 / 3*6 ;	out "|f (95 / 5) << 2 (79) != (4-5) *3 / 3*6(0):"; 	out logic_2;
+bool logic_3 = 5/2 < 2*3 ;			out "|f 5/2 (2) < 2*3(6): ";  			out logic_3;					
+bool logic_4 = (4-5) *3 / 3*6 <(95 / 5) << 2  ;	out "|f (4-5) *3 / 3*6 (-6) < (95 / 5) << 2 (79):"; 	out logic_4;
+
+out "|d 3 в степени: ";	out pow(3 ,3);
+int 1_resulting = 0;	int 2_resulting = 0;	int 3_resulting = 0;
+for ( int iter = 0; iter < 3;iter = iter + 1;)
+{
+1_resulting = 1_resulting + 1;	out "|e 1-resulting ="; 	out 1_resulting;
+	for ( int iter = 0; iter < 2;iter = iter + 1;)
+	{
+	2_resulting = 2_resulting + 1;	out "|e|t 2-resulting ="; 	out 2_resulting;
+		for ( int iter = 0; iter < 1;iter = iter + 1;)
+		{
+		3_resulting = 3_resulting + 1;	out "|e|t|t 3-resulting ="; 	out 3_resulting;
+		}
+	}
+}
+return 0 ;
+};

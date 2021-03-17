@@ -4,10 +4,10 @@
 #define STRING_END_ZERO '\0'
 
 #define IN_CODE_TABLE {\
-	IN::F,	IN::F, IN::F, IN::F, IN::F,	IN::F, IN::F, IN::F, IN::F,	IN::T, IN::D, IN::T, IN::T,	IN::I, IN::T, IN::T/*15*/,\
+	IN::F,	IN::F, IN::F, IN::F, IN::F,	IN::F, IN::F, IN::F, IN::F,	IN::D, IN::D, IN::T, IN::T,	IN::I, IN::T, IN::T/*15*/,\
 	IN::F,	IN::F, IN::F, IN::F, IN::F,	IN::F, IN::F, IN::F, IN::F,	IN::F, IN::F, IN::F, IN::F,	IN::F, IN::F, IN::F/*31*/,\
-	IN::D,	IN::T, IN::D, IN::T, IN::T,	IN::T, IN::T, IN::D, IN::D,	IN::D, IN::A, IN::A, IN::D,	IN::A, IN::T, IN::A/*47*/,\
-	IN::T,	IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T,	IN::T, IN::T, IN::D, IN::T,	IN::A, IN::T, IN::T/*63*/,\
+	IN::D,	IN::A, IN::D, IN::T, IN::T,	IN::T, IN::T, IN::T, IN::D,	IN::D, IN::A, IN::A, IN::D,	IN::A, IN::T, IN::A/*47*/,\
+	IN::N,	IN::N, IN::N, IN::N, IN::N, IN::N, IN::N, IN::N, IN::N,	IN::N, IN::T, IN::D, IN::A,	IN::A, IN::A, IN::T/*63*/,\
 	IN::F,	IN::T, IN::T, IN::T, IN::T,	IN::T, IN::T, IN::T, IN::T,	IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T/*79*/,\
 	IN::T,	IN::T, IN::T, IN::T, IN::T,	IN::T, IN::T, IN::T, IN::T,	IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T/*95*/,\
 	IN::F,  IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T/*111*/,\
@@ -27,7 +27,7 @@ namespace In
 {
 	struct IN
 	{
-		enum { T = 1024, F = 2048, I = 4096, D = 8192, A = 16384 };
+		enum { T = 1024, F = 2048, I = 4096, D = 8192, A = 16384, N= 32768};
 		int size;
 		int lines;
 		int ignor;

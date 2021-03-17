@@ -82,7 +82,7 @@ namespace PN
 				char buffer[ID_MAXSIZE];
 				int parm_quantity = 0;
 				i++;
-				for (; lexTable.GetEntry(i).lexema != ')'; i++)
+				for (; lexTable.GetEntry(i).lexema != ')'&& lexTable.GetEntry(i).lexema != ';'; i++)
 				{
 
 					if (in_ex.code[lexTable.GetEntry(i).lexema] != in_ex.D)
@@ -91,6 +91,10 @@ namespace PN
 						temp = lexTable.GetEntry(i);
 						literals->push(temp);
 					}
+				}
+				if (lexTable.GetEntry(i).lexema == ';' && parm_quantity == 0)
+				{
+					break;
 				}
 				_itoa_s(parm_quantity, buffer, 10);
 				literals->push(temp_1);
@@ -104,13 +108,6 @@ namespace PN
 				i++;
 				continue;
 			}
-			if (temp.lexema == LEX_EQUALITY_SIGN ||
-				temp.lexema == LEX_LESS_SIGN ||
-				temp.lexema == LEX_MORE_SIGN ||
-				temp.lexema == LEX_NOTEQUALITY_SIGN)
-			{
-				flag = false; break;
-			}
 			switch (operators->Last_element(idTable))
 			{
 
@@ -122,7 +119,9 @@ namespace PN
 					if (idTable.table[temp.idxTI].value.operation == PLUS ||
 						idTable.table[temp.idxTI].value.operation == MINUS ||
 						idTable.table[temp.idxTI].value.operation == STAR ||
-						idTable.table[temp.idxTI].value.operation == DIRSLASH)
+						idTable.table[temp.idxTI].value.operation == DIRSLASH||
+						idTable.table[temp.idxTI].value.operation == BINARY_LEFT||
+						idTable.table[temp.idxTI].value.operation == BINARY_RIGHT)
 					{
 						operators->push(temp);
 						i++;
@@ -139,16 +138,24 @@ namespace PN
 					}
 				}
 				if (temp.lexema == LEX_RIGHTTHESIS) { flag = false; }
-				if (temp.lexema == LEX_SEMICOLON) { is_complete = true; flag = false; }
+				if (temp.lexema == LEX_SEMICOLON ||
+					temp.lexema == LEX_EQUALITY_SIGN ||
+					temp.lexema == LEX_LESS_SIGN ||
+					temp.lexema == LEX_MORE_SIGN ||
+					temp.lexema == LEX_NOTEQUALITY_SIGN) { is_complete = true; flag = false; }
 				break;
 			}
 			case PLUS:
+			case BINARY_LEFT:
+			case BINARY_RIGHT:
 			case MINUS:
 			{
 				if (temp.idxTI != -1)
 				{
 					if (idTable.table[temp.idxTI].value.operation == PLUS ||
-						idTable.table[temp.idxTI].value.operation == MINUS)
+						idTable.table[temp.idxTI].value.operation == MINUS ||
+						idTable.table[temp.idxTI].value.operation == BINARY_LEFT ||
+						idTable.table[temp.idxTI].value.operation == BINARY_RIGHT)
 					{
 						literals->push(*operators->pop());
 						break;
@@ -157,7 +164,11 @@ namespace PN
 				else
 				{
 					if (temp.lexema == LEX_LEFTTHESIS ||
-						temp.lexema == LEX_SEMICOLON)
+						temp.lexema == LEX_SEMICOLON ||
+						temp.lexema == LEX_EQUALITY_SIGN ||
+						temp.lexema == LEX_LESS_SIGN ||
+						temp.lexema == LEX_MORE_SIGN ||
+						temp.lexema == LEX_NOTEQUALITY_SIGN)
 					{
 						literals->push(*operators->pop());
 						break;
@@ -193,7 +204,9 @@ namespace PN
 					if (idTable.table[temp.idxTI].value.operation == PLUS ||
 						idTable.table[temp.idxTI].value.operation == MINUS ||
 						idTable.table[temp.idxTI].value.operation == STAR ||
-						idTable.table[temp.idxTI].value.operation == DIRSLASH)
+						idTable.table[temp.idxTI].value.operation == DIRSLASH ||
+						idTable.table[temp.idxTI].value.operation == BINARY_LEFT ||
+						idTable.table[temp.idxTI].value.operation == BINARY_RIGHT)
 					{
 						literals->push(*operators->pop());
 						break;
@@ -202,7 +215,11 @@ namespace PN
 				else
 				{
 					if (temp.lexema == LEX_RIGHTTHESIS ||
-						temp.lexema == LEX_SEMICOLON)
+						temp.lexema == LEX_SEMICOLON ||
+						temp.lexema == LEX_EQUALITY_SIGN ||
+						temp.lexema == LEX_LESS_SIGN ||
+						temp.lexema == LEX_MORE_SIGN ||
+						temp.lexema == LEX_NOTEQUALITY_SIGN)
 					{
 						literals->push(*operators->pop());
 						break;
@@ -217,14 +234,21 @@ namespace PN
 			}
 			case LEX_LEFTTHESIS:
 			{
-				if (temp.lexema == LEX_SEMICOLON) flag = false;
+				if (temp.lexema == LEX_SEMICOLON || 
+					temp.lexema == LEX_EQUALITY_SIGN ||
+					temp.lexema == LEX_LESS_SIGN ||
+					temp.lexema == LEX_MORE_SIGN ||
+					temp.lexema == LEX_NOTEQUALITY_SIGN)
+					flag = false;
 
 				if (temp.idxTI != -1)
 				{
 					if (idTable.table[temp.idxTI].value.operation == PLUS ||
 						idTable.table[temp.idxTI].value.operation == MINUS ||
 						idTable.table[temp.idxTI].value.operation == STAR ||
-						idTable.table[temp.idxTI].value.operation == DIRSLASH)
+						idTable.table[temp.idxTI].value.operation == DIRSLASH ||
+						idTable.table[temp.idxTI].value.operation == BINARY_LEFT ||
+						idTable.table[temp.idxTI].value.operation == BINARY_RIGHT)
 					{
 						operators->push(temp);
 						i++;
@@ -267,7 +291,11 @@ namespace PN
 				}
 			}
 
-			for (int i = lt_position, j = 0; lexTable.table[i].lexema != LEX_SEMICOLON; i++)
+			for (int i = lt_position, j = 0; lexTable.table[i].lexema != LEX_SEMICOLON &&
+				lexTable.table[i].lexema != LEX_EQUALITY_SIGN &&
+				lexTable.table[i].lexema != LEX_LESS_SIGN &&
+				lexTable.table[i].lexema != LEX_MORE_SIGN &&
+				lexTable.table[i].lexema != LEX_NOTEQUALITY_SIGN; i++)
 			{
 				if ((i - count) < lt_position)
 					lexTable.table[i] = temp_array[j++];

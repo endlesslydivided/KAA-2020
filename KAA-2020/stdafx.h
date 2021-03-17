@@ -17,3 +17,4 @@
 #include "FST.h"
 #include "GRB.h"
 #include "SemanticAnalys.h"
+#include "CodeGenerator.h"

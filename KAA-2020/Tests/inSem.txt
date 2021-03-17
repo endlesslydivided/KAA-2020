@@ -1,0 +1,15 @@
+int function factorial(int a)
+{
+int result = a;
+for(int iter = 1; iter < a;iter = iter + 1;)
+{
+result = result * iter;
+}
+return result;
+};
+main
+{
+factorial = 4;
+out factorial;
+return 0;
+};

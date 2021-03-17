@@ -139,7 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CG.cpp" />
+    <ClCompile Include="CodeGenerator.cpp" />
     <ClCompile Include="Error.cpp" />
     <ClCompile Include="FST.cpp" />
     <ClCompile Include="GRB.cpp" />
@@ -155,7 +155,7 @@
     <ClCompile Include="token-division.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CG.h" />
+    <ClInclude Include="CodeGenerator.h" />
     <ClInclude Include="Error.h" />
     <ClInclude Include="FST.h" />
     <ClInclude Include="GRB.h" />

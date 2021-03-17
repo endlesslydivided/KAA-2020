@@ -3,7 +3,7 @@
 #include <fstream>
 #include "In.h"
 #include "Parm.h"	
-#include "Error.h"	
+#include "Error.h"		
 
 namespace Log
 {

@@ -3,25 +3,91 @@
 ====================================================================================
 |Идентификатор:    Тип данных: |                                        Значение: |      Длина строки: |
 ===================================================================================
-|                       i|                    INT |                                                           0|                             -|
-|                     0_l|                    INT |                                                           1|                             -|
-|                       i|                    INT |                                                           0|                             -|
-|                     1_l|                    INT |                                                           1|                             -|
-|                     tf|                   BOOL|                                                           0|                             -|
-|                    tf1|                   BOOL|                                                           1|                             -|
-|                       y|                    INT |                                                           5|                             -|
-|                       x|                    INT |                                                           2|                             -|
-|                       p|                    INT |                                                           0|                             -|
-|                 symbol|                   CHAR|                                                           4|                             -|
-|                    str|                    STR|                                              "Hello"|                             7|
-|                      y|                    STR|                                                      "s"|                             3|
-|                     2_l|                    INT |                                                           4|                             -|
-|                       l|                    INT |                                                           0|                             -|
-|                     3_l|                    INT |                                                           1|                             -|
-|                     4_l|                    INT |                                                           2|                             -|
-|                    5_l|                    STR|                                          "X equal"|                             9|
-|                     sa|                    STR|                                    "1234567890"|                            12|
-|                     6_l|                    INT |                                                           0|                             -|
+|                      l0|                    INT |                                                           0|                             -|
+|                      l1|                    INT |                                                           1|                             -|
+|                      l2|                    INT |                                                           1|                             -|
+|                      l3|                    INT |                                                           1|                             -|
+|                      l4|                    INT |                                                          -6|                             -|
+|                    l10|                   UINT|                                                          58|                             -|
+|                     l11|                    INT |                                                           2|                             -|
+|                    l12|                   BOOL|                                                           1|                             -|
+|                    l13|                   BOOL|                                                           0|                             -|
+|                    l14|                    STR|            "|e Факториал 6 равен: "|                            25|
+|                    l20|                    STR|"|e Сумма переменных a и b равна: "|                            36|
+|                    l21|                    STR|                                      "Строка 1 "|                            12|
+|                    l22|                    STR|                                        "Строка 2"|                            11|
+|                    l23|                   CHAR|                                                           g|                             -|
+|                    l24|                    STR|                                                  " и "|                             5|
+|                    l30|                    STR|                                              "|h a="|                             7|
+|                    l31|                    STR|                                  "|e|h b(16)="|                            13|
+|                    l32|                    STR|                                    "|e|b b(2)="|                            12|
+|                    l33|                    STR|                                            "|e  c="|                             8|
+|                    l34|                    STR|                                        "|e |d d="|                            10|
+|                    l40|                    STR|"|e Cумма строк oneStr и twoStr: |e |t "|                            40|
+|                    l41|                    STR|"|e b=3; |e b=(uint)a; |e b равно: "|                            36|
+|                    l42|                    STR|                    "|f Длина строки e:"|                            20|
+|                    l43|                   UINT|                                                         100|                             -|
+|                    l44|                    STR|                    "|fCлучайное число:"|                            20|
+|                    l100|                    INT |                                                           2|                             -|
+|                   l101|                    STR|                                        "|f a/2 ="|                            10|
+|                    l102|                    INT |                                                           2|                             -|
+|                    l103|                    INT |                                                           2|                             -|
+|                    l104|                    INT |                                                          10|                             -|
+|                   l110|                    STR|                  "|f a * 2 + 2 - 10 ="|                            21|
+|                    l111|                    INT |                                                           4|                             -|
+|                   l112|                    STR|                      "|f result1 >> 4 ="|                            19|
+|                    l113|                    INT |                                                           2|                             -|
+|                   l114|                    STR|                      "|f result2 << 2 ="|                            19|
+|                    l120|                    INT |                                                           5|                             -|
+|                    l121|                    INT |                                                           2|                             -|
+|                    l122|                    INT |                                                           2|                             -|
+|                    l123|                    INT |                                                           3|                             -|
+|                   l124|                    STR|                "|f 5/2 (2)== 2*3(6):"|                            22|
+|                    l130|                    INT |                                                          95|                             -|
+|                    l131|                    INT |                                                           5|                             -|
+|                    l132|                    INT |                                                           2|                             -|
+|                    l133|                    INT |                                                           4|                             -|
+|                    l134|                    INT |                                                           5|                             -|
+|                    l140|                    INT |                                                           3|                             -|
+|                    l141|                    INT |                                                           3|                             -|
+|                    l142|                    INT |                                                           6|                             -|
+|                   l143|                    STR|"|f (95 / 5) << 2 (79) != (4-5) *3 / 3*6(0):"|                            45|
+|                    l144|                    INT |                                                           5|                             -|
+|                    l200|                    INT |                                                           2|                             -|
+|                    l201|                    INT |                                                           2|                             -|
+|                    l202|                    INT |                                                           3|                             -|
+|                   l203|                    STR|              "|f 5/2 (2) < 2*3(6): "|                            23|
+|                    l204|                    INT |                                                           4|                             -|
+|                    l210|                    INT |                                                           5|                             -|
+|                    l211|                    INT |                                                           3|                             -|
+|                    l212|                    INT |                                                           3|                             -|
+|                    l213|                    INT |                                                           6|                             -|
+|                    l214|                    INT |                                                          95|                             -|
+|                    l220|                    INT |                                                           5|                             -|
+|                    l221|                    INT |                                                           2|                             -|
+|                   l222|                    STR|"|f (4-5) *3 / 3*6 (-6) < (95 / 5) << 2 (79):"|                            46|
+|                   l223|                    STR|                        "|d 3 в степени: "|                            18|
+|                    l224|                    INT |                                                           3|                             -|
+|                    l230|                    INT |                                                           3|                             -|
+|                    l231|                    INT |                                                           0|                             -|
+|                    l232|                    INT |                                                           0|                             -|
+|                    l233|                    INT |                                                           0|                             -|
+|                    l234|                    INT |                                                           0|                             -|
+|                    l240|                    INT |                                                           3|                             -|
+|                    l241|                    INT |                                                           1|                             -|
+|                    l242|                    INT |                                                           1|                             -|
+|                   l243|                    STR|                        "|e 1-resulting ="|                            18|
+|                    l244|                    INT |                                                           0|                             -|
+|                    l300|                    INT |                                                           2|                             -|
+|                    l301|                    INT |                                                           1|                             -|
+|                    l302|                    INT |                                                           1|                             -|
+|                   l303|                    STR|                    "|e|t 2-resulting ="|                            20|
+|                    l304|                    INT |                                                           0|                             -|
+|                    l310|                    INT |                                                           1|                             -|
+|                    l311|                    INT |                                                           1|                             -|
+|                    l312|                    INT |                                                           1|                             -|
+|                   l313|                    STR|                "|e|t|t 3-resulting ="|                            22|
+|                    l314|                    INT |                                                           0|                             -|
 ====================================================================================
 
 
@@ -31,14 +97,11 @@
 =============================================================================
 |     Идентификатор: |    Тип данных возврата: |Количество переданных параметров: |
 =============================================================================
-|0                               pow|                                      INT |                                                                   2|
-|8                               pow|                                     UINT |                                                                   2|
-|16                     multiply|                                      INT |                                                                   2|
-|20                   lengthSum|                                      INT |                                                                   2|
-|24                         strlen|                                      INT |                                                                   1|
-|26                         strlen|                                      INT |                                                                   1|
-|27                 isNmoreSUM|                                     BOOL |                                                                   3|
-|32                             main|                                      INT |                                                                   0|
+                               pow|                                      INT |                                                                   2|
+                   factorial|                                      INT |                                                                   1|
+                             main|                                      INT |                                                                   0|
+                             strl|                                      INT |                                                                   1|
+                         random|                                      INT |                                                                   1|
 =============================================================================
 
 
@@ -50,29 +113,45 @@
 ==================================================================================================================================================================
 |                                              pow|                         number|                     INT |                                          P  |                                                           0|                       - |
 |                                              pow|                           power|                     INT |                                          P  |                                                           0|                       - |
-|                            0pow_int_for|                                   i|                     INT |                                          V  |                                                           0|                       - |
-|                                              pow|                         number|                    UINT |                                          P  |                                                           0|                        -|
-|                                              pow|                           power|                     INT |                                          P  |                                                           0|                       - |
-|                            1pow_int_for|                                   i|                     INT |                                          V  |                                                           0|                       - |
-|                                    multiply|                                   x|                     INT |                                          P  |                                                           0|                       - |
-|                                    multiply|                                   y|                     INT |                                          P  |                                                           0|                       - |
-|                                  lengthSum|                                   a|                     STR |                                          P  |                                                            |                        0|
-|                                  lengthSum|                                   b|                     STR |                                          P  |                                                            |                        0|
-|                                  lengthSum|                                   k|                     INT |                                          V  |                                                           0|                       - |
-|                                isNmoreSUM|                                   a|                     INT |                                          P  |                                                           0|                       - |
-|                                isNmoreSUM|                                   b|                     INT |                                          P  |                                                           0|                       - |
-|                                isNmoreSUM|                                   c|                     INT |                                          P  |                                                           0|                       - |
-|                                            main|                                 tf|                    BOOL |                                          V  |                                                           0|                        -|
-|                                            main|                               tf1|                    BOOL |                                          V  |                                                           0|                        -|
-|                                            main|                                   z|                    UINT |                                          V  |                                                           0|                        -|
-|                                            main|                                   y|                     INT |                                          V  |                                                           0|                       - |
-|                                            main|                                   x|                     INT |                                          V  |                                                           0|                       - |
-|                                            main|                                   p|                    UINT |                                          V  |                                                           0|                        -|
-|                                            main|                         result|                    BOOL |                                          V  |                                                           0|                        -|
-|                                            main|                         symbol|                    CHAR |                                          V  |                                                            |                        -|
-|                                            main|                               str|                     STR |                                          V  |                                                            |                        0|
-|                  2multiply_int_for|                                   l|                     INT |                                          V  |                                                           0|                       - |
-|                                            main|                                 sa|                     STR |                                          V  |                                                            |                        0|
+|                                              pow|                         result|                     INT |                                          V  |                                                           0|                       - |
+|                                          for_0|                                   i|                     INT |                                          V  |                                                           0|                       - |
+|                                          for_0|                                   i|                     INT |                                         VF  |                                                           0|                       - |
+|                                  factorial|                                   a|                     INT |                                          P  |                                                           0|                       - |
+|                                  factorial|                         result|                     INT |                                          V  |                                                           0|                       - |
+|                                          for_1|                             iter|                     INT |                                          V  |                                                           1|                       - |
+|                                          for_1|                             iter|                     INT |                                         VF  |                                                           1|                       - |
+|                                            main|                                   a|                     INT |                                          V  |                                                          -6|                       - |
+|                                            main|                                   b|                    UINT |                                          V  |                                                          58|                        -|
+|                                            main|                                   l|                     INT |                                          V  |                                                           2|                       - |
+|                                            main|                                   c|                    BOOL |                                          V  |                                                           1|                        -|
+|                                            main|                                   d|                    BOOL |                                          V  |                                                           0|                        -|
+|                                            main|                                   e|                     STR |                                          V  |                                    "|e Факториал 6 равен: "|                       25|
+|                                            main|                                   f|                     STR |                                          V  |                         "|e Сумма переменных a и b равна: "|                       36|
+|                                            main|                         oneStr|                     STR |                                          V  |                                                 "Строка 1 "|                       12|
+|                                            main|                         twoStr|                     STR |                                          V  |                                                  "Строка 2"|                       11|
+|                                            main|                                   g|                    CHAR |                                          V  |                                                           g|                        -|
+|                                            main|                         strSum|                     STR |                                          V  |                                                            |                        0|
+|                                            main|                             fact|                     INT |                                          V  |                                                           0|                       - |
+|                                            main|                         length|                     INT |                                          V  |                                                           0|                       - |
+|                                            main|                             parm|                    UINT |                                          V  |                                                         100|                        -|
+|                                            main|                         number|                    UINT |                                          V  |                                                           0|                        -|
+|                                            main|                       result1|                     INT |                                          V  |                                                           0|                       - |
+|                                            main|                       result2|                     INT |                                          V  |                                                           0|                       - |
+|                                            main|                       result3|                     INT |                                          V  |                                                           0|                       - |
+|                                            main|                       result4|                     INT |                                          V  |                                                           0|                       - |
+|                                            main|                       logic_1|                    BOOL |                                          V  |                                                           5|                        -|
+|                                            main|                       logic_2|                    BOOL |                                          V  |                                                           0|                        -|
+|                                            main|                       logic_3|                    BOOL |                                          V  |                                                           5|                        -|
+|                                            main|                       logic_4|                    BOOL |                                          V  |                                                           0|                        -|
+|                                            main|               1_resulting|                     INT |                                          V  |                                                           0|                       - |
+|                                            main|               2_resulting|                     INT |                                          V  |                                                           0|                       - |
+|                                            main|               3_resulting|                     INT |                                          V  |                                                           0|                       - |
+|                                          for_2|                             iter|                     INT |                                          V  |                                                           0|                       - |
+|                                          for_2|                             iter|                     INT |                                         VF  |                                                           0|                       - |
+|                                          for_3|                             iter|                     INT |                                          V  |                                                           0|                       - |
+|                                          for_3|                             iter|                     INT |                                         VF  |                                                           0|                       - |
+|                                          for_4|                             iter|                     INT |                                          V  |                                                           0|                       - |
+|                                          for_4|                             iter|                     INT |                                         VF  |                                                           0|                       - |
 ==================================================================================================================================================================
 
 

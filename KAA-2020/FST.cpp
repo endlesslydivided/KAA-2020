@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include "FST.h"
 
@@ -47,7 +48,7 @@ bool FST::step(FST& fst, short* rstates)
 	{
 		if (rstates[i] == fst.position)
 			for (short j = 0; j < fst.nodes[i].n_relation; j++)
-				if (fst.nodes[i].relations[j].symbol == fst.string[fst.position])
+				if ((unsigned char)fst.nodes[i].relations[j].symbol == (unsigned char)fst.string[fst.position])
 				{
 					fst.rstates[fst.nodes[i].relations[j].nnode] = fst.position + 1;
 					real = true;

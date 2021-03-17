@@ -6,6 +6,7 @@
 #define TI_NULLIDX		0xffffffff			// нет элемента таблицы идентификаторов
 #define TI_STR_MAXSIZE  255					// максимальна€ длина строки
 #define TI_CHAR_MAXSIZE  1					// максимальна€ длина символьного литерала
+#define TI_MAX_PARM_Q	10
 struct Flag_type_variable
 {
 	int LT_posititon = -1;
@@ -19,9 +20,11 @@ namespace IT								// таблица идентификаторов
 
 	struct Entry							// строка таблицы идентификаторов
 	{
+		int first_in;
+		IDDATATYPE parms[TI_MAX_PARM_Q];
 		char parent_function[ID_MAXSIZE];
 		int parent_function_num;
-		char id[ID_MAXSIZE];							// идентификатор (автоматически усекаетс€ до ID_MAXSIZE)
+		char id[ID_MAXSIZE + 1];							// идентификатор (автоматически усекаетс€ до ID_MAXSIZE)
 		IDDATATYPE iddatatype;							// тип данных
 		IDTYPE idtype;									// тип идентификатора
 		union
@@ -45,6 +48,9 @@ namespace IT								// таблица идентификаторов
 		Entry(const char* parentFunc, const char* id, IDDATATYPE iddatatype, IDTYPE idtype, const char* str);
 		Entry(char* parent_function, int parent_function_number, char* id, IDDATATYPE iddatatype, IDTYPE idtype);
 		Entry(const char* parent_function, char* id, IDDATATYPE iddatatype, IDTYPE idtype);
+		Entry(const char* parent_function, const char* id, IDDATATYPE iddatatype, IDTYPE idtype, char it);
+		Entry(const char* parent_function, const char* id, IDDATATYPE iddatatype, IDTYPE idtype, unsigned int it);
+
 	};
 
 	struct IdTable							// экземпл€р таблицы идентификаторов
@@ -63,14 +69,16 @@ namespace IT								// таблица идентификаторов
 		);
 		int IsId(const char id[ID_MAXSIZE], Entry ide, int parent_function_number);
 		int IsId(const char id[ID_MAXSIZE]);
+		int IsId(const char id[ID_MAXSIZE], Entry ide);
 		int IsId(const char id[ID_MAXSIZE], const char parent_function[ID_MAXSIZE + 5], int parent_function_number);
 		void PrintIdTable(const wchar_t* in);
 		IdTable();
 		char* GetLexemaName();
 		char* GetForName(char* id, Flag_type_variable Type);
+		char* GetViewName();
 	};
 
 
-	void Delete(IdTable& idtable);			// удалить таблицу лексем (освободить пам€ть)
+	void Delete(IdTable& idTable);			// удалить таблицу лексем (освободить пам€ть)
 };
 

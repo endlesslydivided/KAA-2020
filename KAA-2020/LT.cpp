@@ -1,3 +1,4 @@
+#pragma once
 #include "LT.h"
 
 #include "Error.h"
