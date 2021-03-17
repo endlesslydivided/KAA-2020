@@ -906,7 +906,7 @@ bool func_var(char* token, const int str_number, LT::LexTable& lexTable, IT::IdT
 			else
 				throw ERROR_THROW_IN(123, str_number, -1);
 		}
-		//параметр функции
+		//параметр функции 
 		if (!Checked_id &&
 			(lexTable.GetEntry(lexTable.size - 1).lexema == 't' && flag_type_variable.LT_posititon == lexTable.size - 1))
 		{
