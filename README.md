@@ -2,7 +2,7 @@
 
 ![KAA-2020](https://github.com/endlesslydivided/KAA-2020/blob/master/KAA-2020.png)
 
-### This is a course project that is dedicated to the creation of my own compiler.  *KAA-2020*  is a statically typed high-level compiled programming language.
+This is a course project that is dedicated to the creation of my own compiler.  *KAA-2020*  is a statically typed high-level compiled programming language.
 ## Key Features:
 * Controlling the output of translator debug information  with keys :key:
 * The presence of output manipulators :clipboard:
@@ -20,3 +20,5 @@ Development features:
 * Final-translation language: Assembler
 
 ###  :heavy_check_mark: Project evaluation: 10 points
+### Russian language version of readme.md : 
+https://github.com/endlesslydivided/KAA-2020/blob/master/Documentation%20and%20extra%20materials/README-RU.md
