@@ -1,0 +1,9 @@
+int function pow(int number,int power)
+{
+int result = number;
+for(int i = 0; i < power; i = i+1;)
+{
+result = result * number;
+}
+return result;
+};

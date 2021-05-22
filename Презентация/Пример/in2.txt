@@ -1,0 +1,38 @@
+import <math.txt>
+main
+{
+int a = -6 ; 	
+uint b = 96 ; 	
+int l = 2 ;		
+
+out"|h a="; 		out a;
+out"|e|h b(16)="; 		out b;
+out"|e|b b(2)=";		out b;
+out"|e|o b(8)=";		out b;
+out"|e|d b(10)=";		out b;
+
+b =(uint) a;
+out "|e a=-3; |e b=(uint)a; |e b равно: "; 			out b;
+b = 96;
+a =(int) b;
+out "|e b=96; |e a=(uint)b; |e a равно: "; 			out a;
+
+int result1 = a / 2 ; 			out "|f a/2 ="; 		out result1;
+int result2 = a * 2 + 2 - 10 ;		out "|f a * 2 + 2 - 10 ="; 	out result2;
+int result3 = result1 >> 4 ;		out "|f result1 >> 4 ="; 	out result3;
+int result4 = result2 << 2 ;		out "|f result2 << 2 ="; 	out result4;
+int 1_resulting = 0;	int 2_resulting = 0;	int 3_resulting = 0;
+for ( int iter = 0; iter < 3;iter = iter + 1;)
+{
+1_resulting = 1_resulting + 1;	out "|e 1-resulting ="; 	out 1_resulting;
+	for ( int iter = 0; iter < 2;iter = iter + 1;)
+	{
+	2_resulting = 2_resulting + 1;	out "|e|t 2-resulting ="; 	out 2_resulting;
+		for ( int iter = 0; iter < 1;iter = iter + 1;)
+		{
+		3_resulting = 3_resulting + 1;	out "|e|t|t 3-resulting ="; 	out 3_resulting;
+		}
+	}
+}
+return 0 ;
+};
