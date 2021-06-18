@@ -9,7 +9,7 @@ This is a course project that is dedicated to the creation of my own compiler.  
 * One preprocessor directive :gear:
 * *Assembly* language translation :memo:
 * The presence of two operators of type conversion :arrows_clockwise:
-* Ability *to highlight syntax* in Notepad ++ application :crayon:
+* Ability *to highlight syntax* in Notepad++ application :crayon:
 
 ## Code example:
 
