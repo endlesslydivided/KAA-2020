@@ -20,5 +20,5 @@ Development features:
 * Final-translation language: Assembler
 
 ###  :heavy_check_mark: Project evaluation: 10 points
-### Russian language version of readme.md : 
-https://github.com/endlesslydivided/KAA-2020/blob/master/Documentation%20and%20extra%20materials/README-RU.md
+
+### <p align="center"><a  href="https://github.com/endlesslydivided/KAA-2020/blob/master/Documentation%20and%20extra%20materials/README-RU.md"> Russian language version of README</a> </p>
